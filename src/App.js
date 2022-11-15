@@ -1,14 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 
-import {
-  Container,
-  SuggestionsList,
-  Suggestion,
-  Input,
-  SubmitBtn,
-  GlobalStyle,
-} from "./styles/components";
+import { Container, GlobalStyle } from "./styles/components";
 
 const App = () => {
   const [city, setCity] = React.useState("");
