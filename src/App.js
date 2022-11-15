@@ -7,7 +7,7 @@ import {
   Suggestion,
   Input,
   SubmitBtn,
-  Title,
+  GlobalStyle,
 } from "./styles/components";
 
 const App = () => {
@@ -50,6 +50,11 @@ const App = () => {
     setSuggestions(suggest);
   }
 
+  function handleSuggestedCity(c) {
+    handleCities(c);
+    setSuggestions([]);
+  }
+
   function handleSearch(e) {
     if (!city.length) return;
     e.preventDefault();
@@ -58,28 +63,33 @@ const App = () => {
   }
 
   return (
-    <Container>
-      <Input
-        type="text"
-        value={city}
-        onChange={({ target }) => handleCities(target.value)}
-      />
-      <SuggestionsList>
-        {suggestions.map((c) => (
-          <Suggestion
-            key={c}
-            onClick={() => {
-              setCity(c);
-              setSuggestions([]);
-            }}
-          >
-            {c}
-          </Suggestion>
-        ))}
-      </SuggestionsList>
-      <SubmitBtn onClick={handleSearch}>Buscar</SubmitBtn>
-      {selectedCity ? <Title>{selectedCity}</Title> : null}
-    </Container>
+    <main>
+      <GlobalStyle />
+      <Container>
+        {selectedCity ? <h1>{selectedCity}</h1> : null}
+
+        <label htmlFor="city">Type your city</label>
+        <input
+          id="city"
+          type="text"
+          value={city}
+          onChange={({ target }) => handleCities(target.value)}
+        />
+        <ul>
+          {suggestions.map((c) => (
+            <li
+              key={c}
+              onClick={() => {
+                handleSuggestedCity(c);
+              }}
+            >
+              {c}
+            </li>
+          ))}
+        </ul>
+        <button onClick={handleSearch}>Buscar</button>
+      </Container>
+    </main>
   );
 };
 
